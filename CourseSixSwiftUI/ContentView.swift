@@ -12,6 +12,8 @@ struct ContentView: View {
     private let loginDef = "Admin"
     private let passwordDef = "1"
 
+    let randonNumbers = Int.random(in: 0...100)
+
     @State private var login: String = ""
     @State private var password: String = ""
     @State private var shouldShowLogo: Bool = true
@@ -72,6 +74,8 @@ struct ContentView: View {
                     Spacer(minLength: 50)
 
                     Button {
+
+
                         if login == loginDef && password == passwordDef {
                             print("mkmkm")
                         }
@@ -101,10 +105,27 @@ extension UIApplication {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .previewDevice("iPhone 8")
+            
+        }
+        
     }
 }
 
+@resultBuilder
+struct MyFirstBuilder {
+    static func buildBlock(_ components: Int...) -> [Int] {
+        components.map { element in
+            element * 2
+        }
+    }
+}
 
-
+extension Int {
+    init(@MyFirstBuilder content: () -> Int) {
+        self.init(content())
+    }
+}
 
