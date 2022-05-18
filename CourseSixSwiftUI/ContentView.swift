@@ -35,64 +35,70 @@ struct ContentView: View {
                     .frame(maxWidth: geometry.size.width, maxHeight: 1000)
             }
 
-            ScrollView {
-
-                VStack {
-                    Spacer(minLength: 150)
-
-                    Text("VK")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 60))
-                        .font(.system(.largeTitle))
-                        .padding(.top, 10)
-
-                    Spacer(minLength: 180)
-
+            ScrollViewReader { proxy in
+                ScrollView {
                     VStack {
-                        HStack {
-                            Text("Login:")
-                                .foregroundColor(.white)
-                            Spacer()
-                            TextField("", text: $login)
-                                .frame(maxWidth: 230)
-                                .background(.gray)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Spacer(minLength: 150)
+
+                        Text("VK")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 60))
+                            .font(.system(.largeTitle))
+                            .padding(.top, 10)
+
+                        Spacer(minLength: 180)
+
+                        VStack {
+                            HStack {
+                                Text("Login:")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                TextField("", text: $login)
+                                    .frame(maxWidth: 230)
+                                    .background(.gray)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            }
+                            Spacer(minLength: 50)
+                            HStack {
+                                Text("Password:")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                SecureField("", text: $password)
+                                    .frame(maxWidth: 230)
+                                    .background(.gray)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .id("password")
+                            }
                         }
+                        .frame(maxWidth: 350)
+
                         Spacer(minLength: 50)
-                        HStack {
-                            Text("Password:")
-                                .foregroundColor(.white)
-                            Spacer()
-                            SecureField("", text: $password)
-                                .frame(maxWidth: 230)
-                                .background(.gray)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                        Button {
+                            if login == loginDef && password == passwordDef {
+                                print("mkmkm")
+                            }
+                        } label: {
+                            Text("Ok")
+                                .colorMultiply(.black)
                         }
+                        .padding()
+                        .background(.blue)
                     }
-                    .frame(maxWidth: 350)
-
-                    Spacer(minLength: 50)
-
-                    Button {
-
-
-                        if login == loginDef && password == passwordDef {
-                            print("mkmkm")
-                        }
-                    } label: {
-                        Text("Ok")
-                            .colorMultiply(.black)
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        proxy.scrollTo("password", anchor: .center)
                     }
-                    .padding()
-                    .background(.blue)
                 }
             }
 
             Spacer(minLength: 20)
 
-        }.onTapGesture {
-            UIApplication.shared.endEditing()
         }
+//        .onTapGesture {
+//            UIApplication.shared.endEditing()
+//        }
     }
 }
 
