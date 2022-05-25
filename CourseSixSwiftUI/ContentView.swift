@@ -60,8 +60,8 @@ struct ContentView: View {
             //MARK: New file (struct)
 
             VStack(alignment: .center) {
-                First(shared: $shared)
-                Second()
+                ProcessingActivityView(shared: $shared)
+                CastomTextView()
             }
             .tabItem {
                 Image(systemName: "viewfinder")
